@@ -1,6 +1,6 @@
 let foundQRs = JSON.parse(localStorage.getItem("foundQRs")) || [];
 
-let language = localStorage.getItem("language") || "ru";
+let language = localStorage.getItem("language") || "et";
 
 const params = new URLSearchParams(window.location.search);
 
