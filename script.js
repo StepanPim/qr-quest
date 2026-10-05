@@ -57,3 +57,5 @@ if (params.get("reset") === "1") {
     localStorage.removeItem("foundQRs");
     window.location.href = window.location.origin + window.location.pathname;
 } 
+
+showFoundQRs();
