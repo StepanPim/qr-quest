@@ -3,30 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>QR-Квест</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <h1>🔎 QR-Квест</h1>
+    <div id="language">
+        <button id="ru">Русский</button>
+        <button id="et">Eesti</button>
+    </div>
 
-    <p>Найди все 5 QR-кодов по школе!</p>
+    <h1 id="title">🔎 QR-Квест</h1>
 
-<h2 id="progress">Прогресс: 0/5</h2>
-<div id="complete" style="display: none;">
-    <h2>🎉 КВЕСТ ПРОЙДЕН!</h2>
-    <p>Ты нашёл все 5 QR-кодов!</p>
-    <p>Отличная работа 😎</p>
-</div>
+    <p id="description">Найди все 5 QR-кодов по школе!</p>
 
-<div id="qr-list">
-    <p id="qr1">🔒 QR-код 1</p>
-    <p id="qr2">🔒 QR-код 2</p>
-    <p id="qr3">🔒 QR-код 3</p>
-    <p id="qr4">🔒 QR-код 4</p>
-    <p id="qr5">🔒 QR-код 5</p>
-</div>
-<script src="script.js"></script>
+    <h2 id="progress">Прогресс: 0/5</h2>
+
+    <div id="complete" style="display: none;">
+        <h2 id="complete-title">🎉 КВЕСТ ПРОЙДЕН!</h2>
+        <p id="complete-text">Ты нашёл все 5 QR-кодов!</p>
+        <p id="complete-work">Отличная работа 😎</p>
+    </div>
+
+    <div id="qr-list">
+        <p id="qr1">🔒 QR-код 1</p>
+        <p id="qr2">🔒 QR-код 2</p>
+        <p id="qr3">🔒 QR-код 3</p>
+        <p id="qr4">🔒 QR-код 4</p>
+        <p id="qr5">🔒 QR-код 5</p>
+    </div>
+
+    <script src="script.js"></script>
+
 </body>
-</html> 
+</html>

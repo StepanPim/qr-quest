@@ -1,6 +1,9 @@
 let foundQRs = JSON.parse(localStorage.getItem("foundQRs")) || [];
 
+let language = localStorage.getItem("language") || "ru";
+
 const params = new URLSearchParams(window.location.search);
+
 
 // 🔄 Сброс прогресса
 if (params.get("reset") === "1") {
@@ -8,8 +11,34 @@ if (params.get("reset") === "1") {
     window.location.href = window.location.origin + window.location.pathname;
 }
 
-// 🔎 Находим QR
+
+// 🌍 Тексты
+const texts = {
+    ru: {
+        title: "🔎 QR-Квест",
+        description: "Найди все 5 QR-кодов по школе!",
+        progress: "Прогресс",
+        qr: "QR-код",
+        completeTitle: "🎉 КВЕСТ ПРОЙДЕН!",
+        completeText: "Ты нашёл все 5 QR-кодов!",
+        completeWork: "Отличная работа 😎"
+    },
+
+    et: {
+        title: "🔎 QR-KVEST",
+        description: "Leia koolist kõik 5 QR-koodi!",
+        progress: "Edenemine",
+        qr: "QR-kood",
+        completeTitle: "🎉 ÜLESANNE LÄBITUD!",
+        completeText: "Leidsid kõik 5 QR-koodi!",
+        completeWork: "Tubli töö 😎"
+    }
+};
+
+
+// 🔎 Найти QR
 function findQR(number) {
+
     const qr = document.getElementById("qr" + number);
 
     if (foundQRs.includes(number)) {
@@ -18,46 +47,116 @@ function findQR(number) {
 
     foundQRs.push(number);
 
-    localStorage.setItem("foundQRs", JSON.stringify(foundQRs));
+    localStorage.setItem(
+        "foundQRs",
+        JSON.stringify(foundQRs)
+    );
 
     if (qr) {
-        qr.textContent = "✅ QR-код " + number;
+        qr.textContent =
+            "✅ " + texts[language].qr + " " + number;
     }
 
     updateProgress();
 }
 
-// 📊 Обновляем прогресс
+
+// 📊 Прогресс
 function updateProgress() {
+
     document.getElementById("progress").textContent =
-        "Прогресс: " + foundQRs.length + "/5";
+        texts[language].progress + ": " + foundQRs.length + "/5";
 
     if (foundQRs.length === 5) {
+
         document.getElementById("complete").style.display = "block";
+
     } else {
+
         document.getElementById("complete").style.display = "none";
+
     }
 }
 
-// 🔓 Показываем уже найденные QR
+
+// 🔓 Показываем найденные QR
 function showFoundQRs() {
+
     foundQRs.forEach(function(number) {
+
         const qr = document.getElementById("qr" + number);
 
         if (qr) {
-            qr.textContent = "✅ QR-код " + number;
+
+            qr.textContent =
+                "✅ " + texts[language].qr + " " + number;
+
         }
+
     });
 
     updateProgress();
 }
 
+
+// 🌍 Применяем язык
+function applyLanguage() {
+
+    const t = texts[language];
+
+    document.documentElement.lang =
+        language === "ru" ? "ru" : "et";
+
+    document.getElementById("title").textContent =
+        t.title;
+
+    document.getElementById("description").textContent =
+        t.description;
+
+    document.getElementById("complete-title").textContent =
+        t.completeTitle;
+
+    document.getElementById("complete-text").textContent =
+        t.completeText;
+
+    document.getElementById("complete-work").textContent =
+        t.completeWork;
+
+    showFoundQRs();
+}
+
+
+// 🇷🇺 Русский
+document.getElementById("ru").onclick = function() {
+
+    language = "ru";
+
+    localStorage.setItem("language", language);
+
+    applyLanguage();
+};
+
+
+// 🇪🇪 Eesti
+document.getElementById("et").onclick = function() {
+
+    language = "et";
+
+    localStorage.setItem("language", language);
+
+    applyLanguage();
+};
+
+
 // 📱 Проверяем QR в ссылке
 const qrNumber = Number(params.get("qr"));
 
 if (qrNumber >= 1 && qrNumber <= 5) {
+
     findQR(qrNumber);
+
 }
 
-// 🔓 Восстанавливаем прогресс
-showFoundQRs();
+
+// 🚀 Запускаем язык
+applyLanguage();
