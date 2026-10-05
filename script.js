@@ -51,29 +51,9 @@ const qrNumber = Number(urlParams.get("qr"));
 if (qrNumber >= 1 && qrNumber <= 5) {
     findQR(qrNumber);
 }
+const params = new URLSearchParams(window.location.search);
 
-
-// Кнопки для тестирования
-document.getElementById("qr1").onclick = function() {
-    findQR(1);
-};
-
-document.getElementById("qr2").onclick = function() {
-    findQR(2);
-};
-
-document.getElementById("qr3").onclick = function() {
-    findQR(3);
-};
-
-document.getElementById("qr4").onclick = function() {
-    findQR(4);
-};
-
-document.getElementById("qr5").onclick = function() {
-    findQR(5);
-};
-
-
-// Восстанавливаем прогресс
-showFoundQRs();
+if (params.get("reset") === "1") {
+    localStorage.removeItem("foundQRs");
+    window.location.href = window.location.origin + window.location.pathname;
+} 
